@@ -1,0 +1,2 @@
+# ARMExample
+Example ARM Template
