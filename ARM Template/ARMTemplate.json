@@ -54,7 +54,7 @@
                 "properties": {
                     "securityRules":[
                         {
-                            "name": "Deny Internet Outbound",
+                            "name": "Deny_Internet_Outbound",
                             "properties": {
                                 "description": "Deny Web",
                                 "protocol": "*",
@@ -68,7 +68,7 @@
                             }
                         },
                         {
-                            "name": "Deny Internet Inbound",
+                            "name": "Deny_Internet_Inbound",
                             "properties": {
                                 "description": "Deny Web",
                                 "protocol": "*",
@@ -87,7 +87,7 @@
             },
             {
                 "apiVersion": "2016-07-01",
-                "type:": "Microsoft:Network/virtualNetworks",
+                "type": "Microsoft.Network/virtualNetworks",
                 "name": "[parameters('virtualNetworkName')]",
                 "location":"[resourceGroup().location]",
                 "dependsOn": [
@@ -105,7 +105,7 @@
                             "properties": {
                                 "addressPrefix": "[parameters('Subnet1Prefix')]",
                                 "networkSecurityGroup": {
-                                    "id:": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]" 
+                                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]" 
                                 }
                             }
                         },
@@ -114,7 +114,7 @@
                             "properties": {
                                 "addressPrefix": "[parameters('Subnet2Prefix')]",
                                 "networkSecurityGroup": {
-                                    "id:": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]" 
+                                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]" 
                                 }
                             }
                         },
@@ -123,7 +123,7 @@
                             "properties": {
                                 "addressPrefix": "[parameters('Subnet3Prefix')]",
                                 "networkSecurityGroup": {
-                                    "id:": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]" 
+                                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]" 
                                 }
                             }
                         }
