@@ -2,8 +2,8 @@ Login-AzureRmAccount
 
 $ARMParams = @{
     ResourceGroupName = "ArmNetworkTest"
-    TemplateFile = "C:\Git\ARMExample\Arm Template\ARMTemplate.json"
-    TemplateParameterFile = "C:\Git\ARMExample\Arm Template\ARMTemplateParams.json"
+    TemplateFile = ".\ARMTemplate.json"
+    TemplateParameterFile = ".\ARMTemplateParams.json"
     DeploymentDebugLogLevel = "All"
 }
 
