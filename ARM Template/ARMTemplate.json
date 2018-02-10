@@ -2,134 +2,132 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-            "virtualNetworkName": {
-                "type": "string",
-                "defaultValue": "TestVNet",
-                "metadata": {
-                    "description": "TestVNet"
-                }
-            },
-            "addressPrefix": {
-                "type": "string",
-                "defaultValue": "10.0.0.0/16",
-                "metadata": {
-                    "description": "Class B vNet"
-                }
-            },
-            "Subnet1Prefix": {
-                "type": "string",
-                "defaultValue": "10.0.0.0/24",
-                "metadata": {
-                    "description": "CIDR prefix of Subnet1"
-                }
-            },
-            "Subnet2Prefix": {
-                "type": "string",
-                "defaultValue": "10.0.1.0/24",
-                "metadata": {
-                    "description": "CIDR prefix of Subnet2"
-                }
-            },
-            "Subnet3Prefix": {
-                "type": "string",
-                "defaultValue": "10.0.2.0/24",
-                "metadata": {
-                    "description": "CIDR prefix of Subnet3"
-                }
-            },
-            "NSG": {
-                "type": "string",
-                "defaultValue": "NSG",
-                "metadata": {
-                    "description": "Network Security Group"
-                }
+        "virtualNetworkName": {
+            "type": "string",
+            "defaultValue": "TestVNet",
+            "metadata": {
+                "description": "TestVNet"
             }
         },
-        "resources": [
-            {
-                "apiVersion": "2016-07-01",
-                "type": "Microsoft.Network/networkSecurityGroups",
-                "name": "[parameters('NSG')]",
-                "location": "[resourceGroup().location]",
-                "properties": {
-                    "securityRules":[
-                        {
-                            "name": "Deny_Internet_Outbound",
-                            "properties": {
-                                "description": "Deny Web",
-                                "protocol": "*",
-                                "sourcePortRange": "*",
-                                "destinationPortRange": "*",
-                                "sourceAddressPrefix": "Internet",
-                                "destinationAddressPrefix": "*",
-                                "access": "Deny",
-                                "priority": 100,
-                                "direction": "Outbound"
-                            }
-                        },
-                        {
-                            "name": "Deny_Internet_Inbound",
-                            "properties": {
-                                "description": "Deny Web",
-                                "protocol": "*",
-                                "sourcePortRange": "*",
-                                "destinationPortRange": "*",
-                                "sourceAddressPrefix": "Internet",
-                                "destinationAddressPrefix": "*",
-                                "access": "Deny",
-                                "priority": 100,
-                                "direction": "Inbound"
-                            }
-                        }
-
-                    ]
-                }
-            },
-            {
-                "apiVersion": "2016-07-01",
-                "type": "Microsoft.Network/virtualNetworks",
-                "name": "[parameters('virtualNetworkName')]",
-                "location":"[resourceGroup().location]",
-                "dependsOn": [
-                    "[concat('Microsoft.network/networkSecurityGroups/', parameters('NSG'))]"
-                ],
-                "properties": {
-                    "addressSpace": {
-                        "addressPrefixes": [
-                            "[parameters('addressPrefix')]"
-                        ]
-                    },
-                    "subnets":[
-                        {
-                            "name": "Subnet1",
-                            "properties": {
-                                "addressPrefix": "[parameters('Subnet1Prefix')]",
-                                "networkSecurityGroup": {
-                                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]" 
-                                }
-                            }
-                        },
-                        {
-                            "name": "Subnet2",
-                            "properties": {
-                                "addressPrefix": "[parameters('Subnet2Prefix')]",
-                                "networkSecurityGroup": {
-                                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]" 
-                                }
-                            }
-                        },
-                        {
-                            "name": "Subnet3",
-                            "properties": {
-                                "addressPrefix": "[parameters('Subnet3Prefix')]",
-                                "networkSecurityGroup": {
-                                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]" 
-                                }
-                            }
-                        }
-                    ]
-                }
-
+        "addressPrefix": {
+            "type": "string",
+            "defaultValue": "10.0.0.0/16",
+            "metadata": {
+                "description": "Class B vNet"
             }
-        ]
+        },
+        "Subnet1Prefix": {
+            "type": "string",
+            "defaultValue": "10.0.0.0/24",
+            "metadata": {
+                "description": "CIDR prefix of Subnet1"
+            }
+        },
+        "Subnet2Prefix": {
+            "type": "string",
+            "defaultValue": "10.0.1.0/24",
+            "metadata": {
+                "description": "CIDR prefix of Subnet2"
+            }
+        },
+        "Subnet3Prefix": {
+            "type": "string",
+            "defaultValue": "10.0.2.0/24",
+            "metadata": {
+                "description": "CIDR prefix of Subnet3"
+            }
+        },
+        "NSG": {
+            "type": "string",
+            "defaultValue": "NSG",
+            "metadata": {
+                "description": "Network Security Group"
+            }
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2016-07-01",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('NSG')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "Deny_Internet_Outbound",
+                        "properties": {
+                            "description": "Deny Web",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 100,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Deny_Internet_Inbound",
+                        "properties": {
+                            "description": "Deny Web",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 101,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2016-07-01",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworkName')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[concat('Microsoft.network/networkSecurityGroups/', parameters('NSG'))]"
+            ],
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('addressPrefix')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "Subnet1",
+                        "properties": {
+                            "addressPrefix": "[parameters('Subnet1Prefix')]",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Subnet2",
+                        "properties": {
+                            "addressPrefix": "[parameters('Subnet2Prefix')]",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Subnet3",
+                        "properties": {
+                            "addressPrefix": "[parameters('Subnet3Prefix')]",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSG'))]"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ]
 }
